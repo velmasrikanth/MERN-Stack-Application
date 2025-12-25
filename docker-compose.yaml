@@ -1,0 +1,31 @@
+services:
+  frontend:
+    image: mern-frontend:1.0
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./frontend/.env.docker
+    depends_on:
+      - backend
+  backend:
+    image: mern-backend:1.0   
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env.docker 
+    depends_on:
+      - mongo
+      - redis
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./backend/data:/data
+  redis:
+    image: redis:7.0  
+    ports:
+      - "6379:6379"
+
+volumes:
+  data:
