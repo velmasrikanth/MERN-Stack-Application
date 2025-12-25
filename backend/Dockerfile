@@ -3,5 +3,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
+COPY .env.docker .env
 EXPOSE 5000
 CMD [ "node", "server.js" ]
