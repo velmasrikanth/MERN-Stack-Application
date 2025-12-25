@@ -1,21 +1,9 @@
-# Dockerfile based on node:21
-FROM node:21
-
-# Set working directory
+FROM node:24-alpine
 WORKDIR /app
-
-# Copy package files and install dependencies
 COPY package*.json ./
-RUN npm install
-
-# Copy application source code
+RUN npm ci
 COPY . .
-
-# Rename env file
-COPY .env.docker .env.local
-
-# Expose the port your app runs on
+RUN npm run build
 EXPOSE 5173
+CMD [ "node", "index.js" ]
 
-# Run the app in development mode
-CMD ["npm", "run", "dev", "--", "--host"]
